@@ -92,26 +92,25 @@ class Modele {
         }
 
         public function selectWherePatient ($idPatient){
-            $requete = "select * from patient where idpatient = :idpatient ;";
+            $requete = "SELECT * FROM patient WHERE idpatient = :idpatient ;";
             $donnees=array(":idpatient"=>$idPatient);
             $select = $this->unPDO->prepare($requete);
             $select->execute($donnees);
-            return $select->fetch(); //un seul résultat
+            return $select->fetch();
         }
 
         // fonction qui permet de filtrer la liste des patients
         public function selectLikePatients ($mot){
-            $requete ="select * from patient where nom like :mot or prenom like :mot or adresse like :mot or ville like :mot or telephone like :mot or email like :mot or dateNaissance like :mot or codePostal like :mot or sexe like :mot or idmedecin like :mot ;";
-            $donnees=array(":mot"=>"%".$mot."%");
+            $requete ="select * from patient where nom like '%".$mot."%' or prenom like '%".$mot."%' or adresse like '%".$mot."%' or ville like '%".$mot."%' or telephone like '%".$mot."%' or email like '%".$mot."%' or dateNaissance like '%".$mot."%' or codePostal like '%".$mot."%' or sexe like '%".$mot."%' or idmedecin like '%".$mot."%' ;";
             $select = $this->unPDO->prepare($requete);
-            $select->execute($donnees);
+            $select->execute();
             return $select->fetchAll();
         }
 
         /***********  Medecin  ***********/
         public function insertMedecin ($tab){
             //écriture de la requete preparée d'insertion d'une medecin
-            $requete = "INSERT INTO Medecin (nom, prenom, email, tel, specialite) VALUES (:nom, :prenom, :email, :tel, :specialite);";
+            $requete = "INSERT INTO Medecin (nom, prenom, email, tel, idprofession) VALUES (:nom, :prenom, :email, :tel, :idprofession);";
 
             /* creation d'un tableau de données de correspondance entre 
                les paramètres PDO et kes données reçues en entrée */
@@ -119,7 +118,7 @@ class Modele {
                                 ":prenom"=>$tab['prenom'],
                                 ":email"=>$tab['email'],
                                 ":tel"=>$tab['tel'],
-                                ":specialite"=>$tab['specialite']
+                                ":idprofession"=>$tab['idprofession']
                             );
             //préparation de la requete
             $insert = $this->unPDO->prepare ($requete);
@@ -167,10 +166,9 @@ class Modele {
 
         // fonction qui permet de filtrer la liste des médecins
         public function selectLikeMedecins ($mot){
-            $requete ="select * from medecin where nom like :mot or prenom like :mot or email like :mot or tel like :mot or specialite like :mot ;";
-            $donnees=array(":mot"=>"%".$mot."%");
+            $requete ="select * from medecin where nom like '%".$mot."%' or prenom like '%".$mot."%' or email like '%".$mot."%' or tel like '%".$mot."%' or idprofession like '%".$mot."%' ;";
             $select = $this->unPDO->prepare($requete);
-            $select->execute($donnees);
+            $select->execute();
             return $select->fetchAll();
         }
 
@@ -194,10 +192,7 @@ class Modele {
 
         // fonction qui liste tout les rendez-vous
         public function selectAllRendezvous (){
-            $requete = "SELECT r.idrendezvous, r.daterdv, r.heure, r.etat, p.nom AS patient_nom, p.prenom AS patient_prenom, m.nom AS medecin_nom, m.prenom AS medecin_prenom
-            FROM rendezvous r
-            JOIN patient p ON r.idpatient = p.idpatient
-            JOIN medecin m ON r.idmedecin = m.idmedecin;";
+            $requete = "select * from listeRDVS;";
             $select = $this->unPDO->prepare($requete);
             $select->execute();
             return $select->fetchAll();
@@ -236,10 +231,9 @@ class Modele {
 
         // fonction qui filtre les rendez-vous
         public function selectLikeRendezvous ($mot){
-            $requete ="select * from rendezvous where date like :mot or heure like :mot or etat like :mot or idpatient like :mot or idmedecin like :mot ;";
-            $donnees=array(":mot"=>"%".$mot."%");
+            $requete ="select * from listeRDVS where daterdv like '%".$mot."%' or heure like '%".$mot."%' or etat like '%".$mot."%' or patient_nom like '%".$mot."%' or patient_prenom like '%".$mot."%' or medecin_nom like '%".$mot."%' or medecin_prenom like '%".$mot."%' ;";
             $select = $this->unPDO->prepare($requete);
-            $select->execute($donnees);
+            $select->execute();
             return $select->fetchAll();
         }
 
@@ -299,12 +293,19 @@ class Modele {
             return $select->fetch(); //un seul résultat 
         }
 
-        // fonction qui filtre la liste des prescriptions
-        public function selectLikePrescription ($mot){
-            $requete ="select * from prescription where dateprescription like :mot or medicament like :mot or idpatient like :mot or idmedecin like :mot or idprescription like :mot;";
-            $donnees=array(":mot"=>"%".$mot."%");
+        public function selectWhereProfession ($idprofession){
+            $requete = "select * from professions where idprofession = :idprofession ;";
+            $donnees=array(":idprofession"=>$idprofession);
             $select = $this->unPDO->prepare($requete);
             $select->execute($donnees);
+            return $select->fetch(); //un seul résultat 
+        }
+
+        // fonction qui filtre la liste des prescriptions
+        public function selectLikePrescription ($mot){
+            $requete ="select * from prescription where dateprescription like '%".$mot."%' or medicament like '%".$mot."%' or idpatient like '%".$mot."%' or idmedecin like '%".$mot."%' ;";
+            $select = $this->unPDO->prepare($requete);
+            $select->execute();
             return $select->fetchAll();
         }
 

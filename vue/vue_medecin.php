@@ -63,7 +63,7 @@
         <th>Prénom</th>
         <th>Email</th>
         <th>Téléphone</th>
-        <th>Spécialité</th>
+        <th>Profession</th>
     </tr>
     <?php
     if (isset($lesMedecins)) {
@@ -74,7 +74,8 @@
             echo "<td>" . $unMedecin['prenom'] . "</td>";
             echo "<td>" . $unMedecin['email'] . "</td>";
             echo "<td>" . $unMedecin['tel'] . "</td>";
-            echo "<td>" . $unMedecin['specialite'] . "</td>";
+            $uneProfession = $unControleur->selectWhereProfession($unMedecin['idprofession']);
+            echo "<td>" . $uneProfession ['libelle']. "</td>";
 
             echo "<td><a href='index.php?page=2&action=sup&idmedecin=" . $unMedecin['idmedecin'] . "'>
                   <img src='images/supprimer.png' height='20' width='20' alt='Supprimer'></a>";

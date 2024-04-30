@@ -80,7 +80,7 @@
     </select>
 
     <label for="specialite">Médecin</label>
-    <select name="specialite" id="specialite" required>
+    <select name="idmedecin" id="idmedecin" required>
         <?php
         $lesMedecins = $unControleur->selectAllMedecins();
         foreach ($lesMedecins as $unMedecin) {

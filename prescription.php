@@ -32,7 +32,7 @@ if (isset($_POST['Valider'])) {
 if (isset($_POST['Filtrer'])) {
     $mot = $_POST['mot'];
 
-    $lesPrescriptions = $unControleur->selectLikePrescriptions($mot);
+    $lesPrescriptions = $unControleur->selectLikePrescription($mot);
 } else {
     $lesPrescriptions = $unControleur->selectAllPrescriptions();
     $lesMedecins = $unControleur->selectAllMedecins();

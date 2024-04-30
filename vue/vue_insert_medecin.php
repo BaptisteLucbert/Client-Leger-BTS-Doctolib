@@ -59,7 +59,7 @@
     
     <!--Récupération des professions dans la DB-->
     <label for="specialite">Profession</label>
-    <select name="specialite" id="specialite" required>
+    <select name="idprofession" id="idprofession" required>
         <?php
         $lesProfessions = $unControleur->selectAllProfessions();
         foreach ($lesProfessions as $uneProfession) {

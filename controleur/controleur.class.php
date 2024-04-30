@@ -142,7 +142,7 @@ class Controleur
     {
         $this->unModel->updatePrescription($tab);
     }
-
+   
     public function selectWherePrescription($idPrescription)
     {
         return $this->unModel->selectWherePrescription($idPrescription);
@@ -154,5 +154,9 @@ class Controleur
     public function selectAllProfessions() {
         $lesProfessions = $this->unModel->selectAllProfessions();
         return $lesProfessions;
-    }    
+    } 
+    public function selectWhereProfession($idprofession)
+    {
+        return $this->unModel->selectWhereProfession($idprofession);
+    }   
 }

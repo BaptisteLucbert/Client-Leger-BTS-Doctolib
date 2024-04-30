@@ -17,15 +17,21 @@ CREATE TABLE Patient (
     PRIMARY KEY (idpatient),
     FOREIGN KEY (idmedecin) REFERENCES Medecin(idmedecin)
 );
-
+CREATE TABLE Professions (
+    idprofession INT(3) NOT NULL AUTO_INCREMENT,
+    libelle VARCHAR(50) NOT NULL,
+    PRIMARY KEY (idprofession)
+);
 CREATE TABLE Medecin (
     idmedecin INT(3) NOT NULL AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     tel VARCHAR(50) NOT NULL,
-    specialite VARCHAR(50) NOT NULL,
-    PRIMARY KEY (idmedecin)
+    idprofession INT(3) NOT NULL,
+
+    PRIMARY KEY (idmedecin), 
+    FOREIGN KEY (idprofession) REFERENCES Professions(idprofession)
 );
 
 CREATE TABLE RendezVous (
@@ -113,10 +119,18 @@ INSERT INTO Personne VALUES (null, 'Wilkosz', 'Matthieu', 'mwilkosz@gmail.com', 
 INSERT INTO Personne VALUES (null, 'Lucbert', 'Baptiste', 'blucbert@gmail.com', 'Superb@pt95!', '0615141213', 'Admin');
 INSERT INTO Personne VALUES (null, 'Youssoufa', 'Ilyes', 'iyoussoufa@gmail.com', 'Superb@pt95!', '0615141213', 'Admin');
 
-INSERT INTO Medecin VALUES (null, 'Dupont', 'Jean', 'jean.dupont@example.com', '0123456789', 'Cardiologue');
-INSERT INTO Medecin VALUES (null, 'Martin', 'Sophie', 'sophie.martin@example.com', '0234567890', 'Dentiste');
-INSERT INTO Medecin VALUES (null, 'Lefevre', 'Pierre', 'pierre.lefevre@example.com', '0345678901', 'Gynecologue');
+INSERT INTO Medecin VALUES (null, 'Dupont', 'Jean', 'jean.dupont@example.com', '0123456789', 3);
+INSERT INTO Medecin VALUES (null, 'Martin', 'Sophie', 'sophie.martin@example.com', '0234567890', 5);
+INSERT INTO Medecin VALUES (null, 'Lefevre', 'Pierre', 'pierre.lefevre@example.com', '0345678901', 7);
 
 INSERT INTO Patient VALUES (null, 'Dubois', 'Alice', '123 Rue de la Paix', 'Paris', '0123456789', 'alice.dubois@example.com', '1990-05-15', '75001', 'Femme', 1);
 INSERT INTO Patient VALUES (null, 'Bernard', 'Paul', '456 Avenue des Fleurs', 'Nice', '0234567890', 'paul.bernard@example.com', '1985-10-20', '06000', 'Homme', 2);
 INSERT INTO Patient VALUES (null, 'Leroux', 'Marie', '789 Rue du Chateau', 'Lyon', '0345678901', 'marie.leroux@example.com', '1998-03-08', '69001', 'Femme', 3);
+
+
+CREATE view listeRDVS as (
+    SELECT r.idrendezvous, r.daterdv, r.heure, r.etat, p.nom AS patient_nom, p.prenom AS patient_prenom, m.nom AS medecin_nom, m.prenom AS medecin_prenom
+    FROM rendezvous r
+    JOIN patient p ON r.idpatient = p.idpatient
+    JOIN medecin m ON r.idmedecin = m.idmedecin
+);
