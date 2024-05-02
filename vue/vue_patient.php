@@ -70,34 +70,32 @@
         <th>Sexe</th>
         <th>Médecin traitant</th>
     </tr>
+
     <?php
-    if (isset($lesPatients)) {
-        foreach ($lesPatients as $unPatient) {
-            echo "<tr>";
-            echo "<td>" . $unPatient['idpatient'] . "</td>";
-            echo "<td>" . $unPatient['nom'] . "</td>";
-            echo "<td>" . $unPatient['prenom'] . "</td>";
-            echo "<td>" . $unPatient['adresse'] . "</td>";
-            echo "<td>" . $unPatient['ville'] . "</td>";
-            echo "<td>" . $unPatient['telephone'] . "</td>";
-            echo "<td>" . $unPatient['email'] . "</td>";
-            echo "<td>" . $unPatient['dateNaissance'] . "</td>";
-            echo "<td>" . $unPatient['codePostal'] . "</td>";
-            echo "<td>" . $unPatient['sexe'] . "</td>";
-
-            // Fetch doctor's name and surname based on idmedecin
-            $medecinInfo = $unControleur->selectWhereMedecin($unPatient['idmedecin']);
-
-            // Display doctor's name and surname
-            echo "<td>" . $medecinInfo['nom'] . " " . $medecinInfo['prenom'] . "</td>";
-
-            echo "<td><a href='index.php?page=1&action=sup&idpatient=" . $unPatient['idpatient'] . "'>
-                  <img src='images/supprimer.png' height='20' width='20' alt='Supprimer'></a>";
-            echo "<a href='index.php?page=1&action=edit&idpatient=" . $unPatient['idpatient'] . "'>
-                  <img src='images/editer.png' height='20' width='20' alt='Editer'></a></td>";
-            echo "</tr>";
+        if (isset($lesPatients)) {
+            foreach ($lesPatients as $unPatient) {
+                echo "<tr>";
+                echo "<td>" . $unPatient['idpatient'] . "</td>";
+                echo "<td>" . $unPatient['nom'] . "</td>";
+                echo "<td>" . $unPatient['prenom'] . "</td>";
+                echo "<td>" . $unPatient['adresse'] . "</td>";
+                echo "<td>" . $unPatient['ville'] . "</td>";
+                echo "<td>" . $unPatient['telephone'] . "</td>";
+                echo "<td>" . $unPatient['email'] . "</td>";
+                echo "<td>" . $unPatient['dateNaissance'] . "</td>";
+                echo "<td>" . $unPatient['codePostal'] . "</td>";
+                echo "<td>" . $unPatient['sexe'] . "</td>";
+            
+                $medecinInfo = $unControleur->selectWhereMedecin($unPatient['idmedecin']);
+                echo "<td>" . $medecinInfo['nom'] . " " . $medecinInfo['prenom'] . "</td>";
+            
+                echo "<td><a href='index.php?page=1&action=sup&idpatient=" . $unPatient['idpatient'] . "'>
+                      <img src='images/supprimer.png' height='20' width='20' alt='Supprimer'></a>";
+                echo "<a href='index.php?page=1&action=edit&idpatient=" . $unPatient['idpatient'] . "'>
+                      <img src='images/editer.png' height='20' width='20' alt='Editer'></a></td>";
+                echo "</tr>";
+            }
         }
-    }
     ?>
 </table>
 

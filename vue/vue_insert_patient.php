@@ -82,14 +82,14 @@
     <label for="specialite">Médecin</label>
     <select name="idmedecin" id="idmedecin" required>
         <?php
-        $lesMedecins = $unControleur->selectAllMedecins();
-        foreach ($lesMedecins as $unMedecin) {
-            echo '<option value="' . $unMedecin['idmedecin'] . '"';
-            if ($unPatient != null && $unPatient['idmedecin'] == $unMedecin['idmedecin']) {
-                echo 'selected';
+            $lesMedecins = $unControleur->selectAllMedecins();
+            foreach ($lesMedecins as $unMedecin) {
+                echo '<option value="' . $unMedecin['idmedecin'] . '"';
+                if ($unPatient != null && $unPatient['idmedecin'] == $unMedecin['idmedecin']) {
+                    echo 'selected';
+                }
+                echo '>' . $unMedecin['nom'] . ' ' . $unMedecin['prenom'] . '</option>';
             }
-            echo '>' . $unMedecin['nom'] . ' ' . $unMedecin['prenom'] . '</option>';
-        }
         ?>
     </select>
 

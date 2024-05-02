@@ -52,14 +52,15 @@
 	<input type="date" name="dateprescription" value="<?= ($unPrescription != null) ? $unPrescription['dateprescription'] : '' ?>"> </br>
 	Medicament </br>
 	<input type="text" name="medicament" value="<?= ($unPrescription != null) ? $unPrescription['medicament'] : '' ?>"> </br>
-
+    Prise de Médicament </br>
+    <input type="text" name="priseMedicament" value="<?= ($unPrescription != null) ? $unPrescription['priseMedicament'] : '' ?>"> </br>
 
 	Le Patient : <br />
 	<select name="idpatient" value="<?= ($unRendezvous != null) ? $unRendezvous['idpatient'] : '' ?>">
 		<?php
 		foreach ($lesPatients as $unPatient) {
 			echo "<option value='" . $unPatient['idpatient'] . "'>";
-			echo $unPatient['prenom'];
+			echo $unPatient['nom'] . " " . $unPatient['prenom'];
 			echo "</option>";
 		}
 		?>
@@ -72,7 +73,7 @@
 		<?php
 		foreach ($lesMedecins as $unMedecin) {
 			echo "<option value='" . $unMedecin['idmedecin'] . "'>";
-			echo $unMedecin['prenom'];
+			echo $unMedecin['nom'] . " " . $unMedecin['prenom'];
 			echo "</option>";
 		}
 		?>

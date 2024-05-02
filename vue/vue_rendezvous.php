@@ -72,7 +72,7 @@
         foreach ($lesRendezvous as $unRendezvous) {
             /*if (strtolower($unRendezvous['etat']) == 'confirme') {
                 echo "<tr style='background-color: green;'>";
-            } elseif (strtolower($unRendezvous['etat']) == 'en attente') {
+            } elseif (strtolower($unRendezvous['etat']) == 'attente') {
                 echo "<tr style='background-color: yellow;'>";
             } elseif (strtolower($unRendezvous['etat']) == 'annule') {
                 echo "<tr style='background-color: red;'>";
@@ -84,8 +84,12 @@
             echo "<td>" . $unRendezvous['daterdv'] . "</td>";
             echo "<td>" . $unRendezvous['heure'] . "</td>";
             echo "<td>" . $unRendezvous['etat'] . "</td>";
-            echo "<td>" . $unRendezvous['patient_nom'] . " " . $unRendezvous['patient_prenom'] . "</td>";
-            echo "<td>" . $unRendezvous['medecin_nom'] . " " . $unRendezvous['medecin_prenom'] . "</td>";
+
+            $patientInfo = $unControleur->selectWhereMedecin($unRendezvous['idpatient']);
+            echo "<td>" . $patientInfo['nom'] . " " . $patientInfo['prenom'] . "</td>";
+
+            $medecinInfo = $unControleur->selectWhereMedecin($unRendezvous['idmedecin']);
+            echo "<td>" . $medecinInfo['nom'] . " " . $medecinInfo['prenom'] . "</td>";
 
             echo "<td><a href='index.php?page=3&action=sup&idrendezvous=" . $unRendezvous['idrendezvous'] . "'>
                 <img src='images/supprimer.png' height='20' width='20' alt='Supprimer'></a>";

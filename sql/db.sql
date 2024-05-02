@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS rdv_medecin;
 CREATE DATABASE rdv_medecin;
 USE rdv_medecin;
 
-CREATE TABLE Patient (
+CREATE TABLE patient (
     idpatient INT(3) NOT NULL AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
@@ -15,26 +15,27 @@ CREATE TABLE Patient (
     sexe enum('Homme','Femme') NOT NULL,
     idmedecin INT(3) NOT NULL,
     PRIMARY KEY (idpatient),
-    FOREIGN KEY (idmedecin) REFERENCES Medecin(idmedecin)
+    FOREIGN KEY (idmedecin) REFERENCES medecin(idmedecin)
 );
-CREATE TABLE Professions (
+CREATE TABLE professions (
     idprofession INT(3) NOT NULL AUTO_INCREMENT,
     libelle VARCHAR(50) NOT NULL,
     PRIMARY KEY (idprofession)
 );
-CREATE TABLE Medecin (
+
+CREATE TABLE medecin (
     idmedecin INT(3) NOT NULL AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     tel VARCHAR(50) NOT NULL,
     idprofession INT(3) NOT NULL,
-
-    PRIMARY KEY (idmedecin), 
-    FOREIGN KEY (idprofession) REFERENCES Professions(idprofession)
+    faculte VARCHAR(50) NOT NULL,
+    PRIMARY KEY (idmedecin),
+    FOREIGN KEY (idprofession) REFERENCES professions(idprofession)
 );
 
-CREATE TABLE RendezVous (
+CREATE TABLE rendezvous (
     idrendezvous INT(3) NOT NULL AUTO_INCREMENT,
     daterdv DATE NOT NULL,
     heure TIME NOT NULL,
@@ -42,22 +43,23 @@ CREATE TABLE RendezVous (
     idpatient INT(3) NOT NULL,
     idmedecin INT(3) NOT NULL,
     PRIMARY KEY (idrendezvous),
-    FOREIGN KEY (idpatient) REFERENCES Patient(idpatient),
-    FOREIGN KEY (idmedecin) REFERENCES Medecin(idmedecin)
+    FOREIGN KEY (idpatient) REFERENCES patient(idpatient),
+    FOREIGN KEY (idmedecin) REFERENCES medecin(idmedecin)
 );
 
-CREATE TABLE Prescription (
+CREATE TABLE prescription (
     idprescription INT(3) NOT NULL AUTO_INCREMENT,
     dateprescription DATE NOT NULL,
     medicament VARCHAR(100) NOT NULL, 
     idpatient INT(3) NOT NULL,
     idmedecin INT(3) NOT NULL,
+    priseMedicament VARCHAR(100) NOT NULL,
     PRIMARY KEY (idprescription),
-    FOREIGN KEY (idpatient) REFERENCES Patient(idpatient),
-    FOREIGN KEY (idmedecin) REFERENCES Medecin(idmedecin)
+    FOREIGN KEY (idpatient) REFERENCES patient(idpatient),
+    FOREIGN KEY (idmedecin) REFERENCES medecin(idmedecin)
 );
 
-CREATE TABLE Personne (
+CREATE TABLE personne (
     idpersonne INT(3) NOT NULL AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
     prenom VARCHAR(50) NOT NULL,
@@ -68,69 +70,64 @@ CREATE TABLE Personne (
     PRIMARY KEY (idpersonne)
 );
 
-CREATE TABLE Professions (
-    idprofession INT(3) NOT NULL AUTO_INCREMENT,
-    libelle VARCHAR(50) NOT NULL,
-    PRIMARY KEY (idprofession)
-);
 
-INSERT INTO Professions VALUES (null, 'Cardiologue');
-INSERT INTO Professions VALUES (null, 'Dentiste');
-INSERT INTO Professions VALUES (null, 'Dermatologue');
-INSERT INTO Professions VALUES (null, 'Gynecologue');
-INSERT INTO Professions VALUES (null, 'Ophtalmologue');
-INSERT INTO Professions VALUES (null, 'Pediatre');
-INSERT INTO Professions VALUES (null, 'Psychiatre');
-INSERT INTO Professions VALUES (null, 'Radiologue');
-INSERT INTO Professions VALUES (null, 'Urologue');
-INSERT INTO Professions VALUES (null, 'Chirurgien');
-INSERT INTO Professions VALUES (null, 'Orthopediste');
-INSERT INTO Professions VALUES (null, 'Oncologue');
-INSERT INTO Professions VALUES (null, 'Neurologue');
-INSERT INTO Professions VALUES (null, 'Pneumologue');
-INSERT INTO Professions VALUES (null, 'Endocrinologue');
-INSERT INTO Professions VALUES (null, 'Rhumatologue');
-INSERT INTO Professions VALUES (null, 'Nephrologue');
-INSERT INTO Professions VALUES (null, 'Hematologue');
-INSERT INTO Professions VALUES (null, 'Allergologue');
-INSERT INTO Professions VALUES (null, 'Anesthesiste');
-INSERT INTO Professions VALUES (null, 'Chirurgien-dentiste');
-INSERT INTO Professions VALUES (null, 'Infirmier');
-INSERT INTO Professions VALUES (null, 'Sage-femme');
-INSERT INTO Professions VALUES (null, 'Kinesitherapeute');
-INSERT INTO Professions VALUES (null, 'Orthophoniste');
-INSERT INTO Professions VALUES (null, 'Psychologue');
-INSERT INTO Professions VALUES (null, 'Dieteticien');
-INSERT INTO Professions VALUES (null, 'Podologue');
-INSERT INTO Professions VALUES (null, 'Opticien');
-INSERT INTO Professions VALUES (null, 'Audioprothesiste');
-INSERT INTO Professions VALUES (null, 'Orthoptiste');
-INSERT INTO Professions VALUES (null, 'Prothesiste-dentaire');
-INSERT INTO Professions VALUES (null, 'Assistant-medical');
-INSERT INTO Professions VALUES (null, 'Assistant-social');
-INSERT INTO Professions VALUES (null, 'Ambulancier');
-INSERT INTO Professions VALUES (null, 'Pompier');
-INSERT INTO Professions VALUES (null, 'Pharmacien');
-INSERT INTO Professions VALUES (null, 'Psychomotricien');
-INSERT INTO Professions VALUES (null, 'Autre');
+INSERT INTO professions VALUES (null, 'Cardiologue');
+INSERT INTO professions VALUES (null, 'Dentiste');
+INSERT INTO professions VALUES (null, 'Dermatologue');
+INSERT INTO professions VALUES (null, 'Gynecologue');
+INSERT INTO professions VALUES (null, 'Ophtalmologue');
+INSERT INTO professions VALUES (null, 'Pediatre');
+INSERT INTO professions VALUES (null, 'Psychiatre');
+INSERT INTO professions VALUES (null, 'Radiologue');
+INSERT INTO professions VALUES (null, 'Urologue');
+INSERT INTO professions VALUES (null, 'Chirurgien');
+INSERT INTO professions VALUES (null, 'Orthopediste');
+INSERT INTO professions VALUES (null, 'Oncologue');
+INSERT INTO professions VALUES (null, 'Neurologue');
+INSERT INTO professions VALUES (null, 'Pneumologue');
+INSERT INTO professions VALUES (null, 'Endocrinologue');
+INSERT INTO professions VALUES (null, 'Rhumatologue');
+INSERT INTO professions VALUES (null, 'Nephrologue');
+INSERT INTO professions VALUES (null, 'Hematologue');
+INSERT INTO professions VALUES (null, 'Allergologue');
+INSERT INTO professions VALUES (null, 'Anesthesiste');
+INSERT INTO professions VALUES (null, 'Chirurgien-dentiste');
+INSERT INTO professions VALUES (null, 'Infirmier');
+INSERT INTO professions VALUES (null, 'Sage-femme');
+INSERT INTO professions VALUES (null, 'Kinesitherapeute');
+INSERT INTO professions VALUES (null, 'Orthophoniste');
+INSERT INTO professions VALUES (null, 'Psychologue');
+INSERT INTO professions VALUES (null, 'Dieteticien');
+INSERT INTO professions VALUES (null, 'Podologue');
+INSERT INTO professions VALUES (null, 'Opticien');
+INSERT INTO professions VALUES (null, 'Audioprothesiste');
+INSERT INTO professions VALUES (null, 'Orthoptiste');
+INSERT INTO professions VALUES (null, 'Prothesiste-dentaire');
+INSERT INTO professions VALUES (null, 'Assistant-medical');
+INSERT INTO professions VALUES (null, 'Assistant-social');
+INSERT INTO professions VALUES (null, 'Ambulancier');
+INSERT INTO professions VALUES (null, 'Pompier');
+INSERT INTO professions VALUES (null, 'Pharmacien');
+INSERT INTO professions VALUES (null, 'Psychomotricien');
+INSERT INTO professions VALUES (null, 'Autre');
 
-INSERT INTO Personne VALUES (null, 'Walker', 'Maxence', 'mwalker@gmail.com', 'Superb@pt95!', '0615141213', 'Patient');
-INSERT INTO Personne VALUES (null, 'Wilkosz', 'Matthieu', 'mwilkosz@gmail.com', 'Superb@pt95!', '0615141213', 'Medecin');
-INSERT INTO Personne VALUES (null, 'Lucbert', 'Baptiste', 'blucbert@gmail.com', 'Superb@pt95!', '0615141213', 'Admin');
-INSERT INTO Personne VALUES (null, 'Youssoufa', 'Ilyes', 'iyoussoufa@gmail.com', 'Superb@pt95!', '0615141213', 'Admin');
+INSERT INTO personne VALUES (null, 'Walker', 'Maxence', 'mwalker@gmail.com', 'Superb@pt95!', '0615141213', 'Patient');
+INSERT INTO personne VALUES (null, 'Wilkosz', 'Matthieu', 'mwilkosz@gmail.com', 'Superb@pt95!', '0615141213', 'Medecin');
+INSERT INTO personne VALUES (null, 'Lucbert', 'Baptiste', 'blucbert@gmail.com', 'Superb@pt95!', '0615141213', 'Admin');
+INSERT INTO personne VALUES (null, 'Youssoufa', 'Ilyes', 'iyoussoufa@gmail.com', 'Superb@pt95!', '0615141213', 'Admin');
 
-INSERT INTO Medecin VALUES (null, 'Dupont', 'Jean', 'jean.dupont@example.com', '0123456789', 3);
-INSERT INTO Medecin VALUES (null, 'Martin', 'Sophie', 'sophie.martin@example.com', '0234567890', 5);
-INSERT INTO Medecin VALUES (null, 'Lefevre', 'Pierre', 'pierre.lefevre@example.com', '0345678901', 7);
+INSERT INTO medecin VALUES (null, 'Dupont', 'Jean', 'jean.dupont@example.com', '0123456789', 1, 'Faculte de Paris');
+INSERT INTO medecin VALUES (null, 'Martin', 'Sophie', 'sophie.martin@example.com', '0234567890', 2, 'Faculte de Lyon');
+INSERT INTO medecin VALUES (null, 'Lefevre', 'Pierre', 'pierre.lefevre@example.com', '0345678901', 3, 'Faculte de Marseille');
 
-INSERT INTO Patient VALUES (null, 'Dubois', 'Alice', '123 Rue de la Paix', 'Paris', '0123456789', 'alice.dubois@example.com', '1990-05-15', '75001', 'Femme', 1);
-INSERT INTO Patient VALUES (null, 'Bernard', 'Paul', '456 Avenue des Fleurs', 'Nice', '0234567890', 'paul.bernard@example.com', '1985-10-20', '06000', 'Homme', 2);
-INSERT INTO Patient VALUES (null, 'Leroux', 'Marie', '789 Rue du Chateau', 'Lyon', '0345678901', 'marie.leroux@example.com', '1998-03-08', '69001', 'Femme', 3);
+INSERT INTO patient VALUES (null, 'Dubois', 'Alice', '123 Rue de la Paix', 'Paris', '0123456789', 'alice.dubois@example.com', '1990-05-15', '75001', 'Femme', 1);
+INSERT INTO patient VALUES (null, 'Bernard', 'Paul', '456 Avenue des Fleurs', 'Nice', '0234567890', 'paul.bernard@example.com', '1985-10-20', '06000', 'Homme', 2);
+INSERT INTO patient VALUES (null, 'Leroux', 'Marie', '789 Rue du Chateau', 'Lyon', '0345678901', 'marie.leroux@example.com', '1998-03-08', '69001', 'Femme', 3);
 
+INSERT INTO rendezvous VALUES (null, '2021-05-15', '10:00:00', 'attente', 1, 1);
+INSERT INTO rendezvous VALUES (null, '2021-05-20', '14:00:00', 'confirme', 2, 2);
+INSERT INTO rendezvous VALUES (null, '2021-05-25', '16:00:00', 'annule', 3, 3);
 
-CREATE view listeRDVS as (
-    SELECT r.idrendezvous, r.daterdv, r.heure, r.etat, p.nom AS patient_nom, p.prenom AS patient_prenom, m.nom AS medecin_nom, m.prenom AS medecin_prenom
-    FROM rendezvous r
-    JOIN patient p ON r.idpatient = p.idpatient
-    JOIN medecin m ON r.idmedecin = m.idmedecin
-);
+INSERT INTO prescription VALUES (null, '2021-05-15', 'Doliprane', 1, 1, '1 comprime 3 fois par jour');
+INSERT INTO prescription VALUES (null, '2021-05-20', 'Paracetamol', 2, 2, '1 comprime 2 fois par jour');
+INSERT INTO prescription VALUES (null, '2021-05-25', 'Ibuprofene', 3, 3, '1 comprime 3 fois par jour');

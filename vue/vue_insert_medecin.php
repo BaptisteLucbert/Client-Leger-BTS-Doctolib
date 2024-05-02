@@ -56,19 +56,19 @@
     <input type="text" name="email" value="<?= ($unMedecin != null) ? $unMedecin['email'] : '' ?>"> </br>
     Téléphone Medecin </br>
     <input type="text" name="tel" value="<?= ($unMedecin != null) ? $unMedecin['tel'] : '' ?>"> </br>
+    Faculté Medecin </br>
+    <input type="text" name="faculte" value="<?= ($unMedecin != null) ? $unMedecin['faculte'] : '' ?>"> </br>
     
     <!--Récupération des professions dans la DB-->
     <label for="specialite">Profession</label>
-    <select name="idprofession" id="idprofession" required>
+    <select name="idprofession" value="idprofession">
         <?php
-        $lesProfessions = $unControleur->selectAllProfessions();
-        foreach ($lesProfessions as $uneProfession) {
-            echo '<option value="' . $uneProfession['idprofession'] . '">' . $uneProfession['libelle'] . '</option>';
-            
-        }
+            $lesProfessions = $unControleur->selectAllProfessions();
+            foreach ($lesProfessions as $uneProfession) {
+                echo '<option value="' . $uneProfession['idprofession'] . '">' . $uneProfession['libelle'] . '</option>';
+            }
         ?>
-    </select>
-
+    </select></br>
 
     <br />
 

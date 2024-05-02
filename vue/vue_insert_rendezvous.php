@@ -54,8 +54,8 @@
 	<input type="time" name="heure" value="<?= ($unRendezvous != null) ? $unRendezvous['heure'] : '' ?>"> </br>
     Etat du Rendez-vous </br>
     <select name="etat" value="<?= ($unRendezvous != null) ? $unRendezvous['etat'] : '' ?>">
+        <option value="attente">En Attente</option>
         <option value="confirme">Confirmé</option>
-        <option value="en attente">En Attente</option>
         <option value="annule">Annulé</option>
     </select><br>
 
@@ -63,11 +63,11 @@
 	Le Patient : <br />
 	<select name="idpatient" value="<?= ($unRendezvous != null) ? $unRendezvous['idpatient'] : '' ?>">
 		<?php
-		foreach ($lesPatients as $unPatient) {
-			echo "<option value='" . $unPatient['idpatient'] . "'>";
-			echo $unPatient['prenom'];
-			echo "</option>";
-		}
+		    foreach ($lesPatients as $unPatient) {
+		    	echo "<option value='" . $unPatient['idpatient'] . "'>";
+		    	echo $unPatient['nom'] . " " . $unPatient['prenom'];
+		    	echo "</option>";
+		    }
 		?>
 	</select><br />
 
@@ -78,7 +78,7 @@
 		<?php
 		foreach ($lesMedecins as $unMedecin) {
 			echo "<option value='" . $unMedecin['idmedecin'] . "'>";
-			echo $unMedecin['prenom'];
+			echo $unMedecin['nom'] . " " . $unMedecin['prenom'];
 			echo "</option>";
 		}
 		?>

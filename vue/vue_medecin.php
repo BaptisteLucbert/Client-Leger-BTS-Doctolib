@@ -63,27 +63,33 @@
         <th>Prénom</th>
         <th>Email</th>
         <th>Téléphone</th>
-        <th>Profession</th>
+        <th>Spécialité</th>
+        <th>Faculté</th>
     </tr>
     <?php
-    if (isset($lesMedecins)) {
-        foreach ($lesMedecins as $unMedecin) {
-            echo "<tr>";
-            echo "<td>" . $unMedecin['idmedecin'] . "</td>";
-            echo "<td>" . $unMedecin['nom'] . "</td>";
-            echo "<td>" . $unMedecin['prenom'] . "</td>";
-            echo "<td>" . $unMedecin['email'] . "</td>";
-            echo "<td>" . $unMedecin['tel'] . "</td>";
-            $uneProfession = $unControleur->selectWhereProfession($unMedecin['idprofession']);
-            echo "<td>" . $uneProfession ['libelle']. "</td>";
-
-            echo "<td><a href='index.php?page=2&action=sup&idmedecin=" . $unMedecin['idmedecin'] . "'>
-                  <img src='images/supprimer.png' height='20' width='20' alt='Supprimer'></a>";
-            echo "<a href='index.php?page=2&action=edit&idmedecin=" . $unMedecin['idmedecin'] . "'>
-                  <img src='images/editer.png' height='20' width='20' alt='Editer'></a></td>";
-            echo "</tr>";
+        if (isset($lesMedecins)) {
+            foreach ($lesMedecins as $unMedecin) {
+                echo "<tr>";
+                echo "<td>" . $unMedecin['idmedecin'] . "</td>";
+                echo "<td>" . $unMedecin['nom'] . "</td>";
+                echo "<td>" . $unMedecin['prenom'] . "</td>";
+                echo "<td>" . $unMedecin['email'] . "</td>";
+                echo "<td>" . $unMedecin['tel'] . "</td>";
+                
+                // Récuperer le nom du de la spécialité
+                $specialiteInfo = $unControleur->selectWhereProfession($unMedecin['idprofession']);
+                echo "<td>" . $specialiteInfo['libelle'] . "</td>";
+            
+                echo "<td>" . $unMedecin['faculte'] . "</td>";
+            
+                echo "<td>
+                        <a href='index.php?page=2&action=sup&idmedecin=" . $unMedecin['idmedecin'] . "'>
+                        <img src='images/supprimer.png' height='20' width='20' alt='Supprimer'></a>";
+                echo "  <a href='index.php?page=2&action=edit&idmedecin=" . $unMedecin['idmedecin'] . "'>
+                        <img src='images/editer.png' height='20' width='20' alt='Editer'></a></td>";
+                echo "</tr>";
+            }
         }
-    }
     ?>
 </table>
 

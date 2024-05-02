@@ -110,7 +110,7 @@ class Modele {
         /***********  Medecin  ***********/
         public function insertMedecin ($tab){
             //écriture de la requete preparée d'insertion d'une medecin
-            $requete = "INSERT INTO Medecin (nom, prenom, email, tel, idprofession) VALUES (:nom, :prenom, :email, :tel, :idprofession);";
+            $requete = "INSERT INTO Medecin (nom, prenom, email, tel, idprofession, faculte) VALUES (:nom, :prenom, :email, :tel, :idprofession, :faculte);";
 
             /* creation d'un tableau de données de correspondance entre 
                les paramètres PDO et kes données reçues en entrée */
@@ -118,7 +118,8 @@ class Modele {
                                 ":prenom"=>$tab['prenom'],
                                 ":email"=>$tab['email'],
                                 ":tel"=>$tab['tel'],
-                                ":idprofession"=>$tab['idprofession']
+                                ":idprofession"=>$tab['idprofession'],
+                                ":faculte"=>$tab['faculte']
                             );
             //préparation de la requete
             $insert = $this->unPDO->prepare ($requete);
@@ -144,12 +145,13 @@ class Modele {
 
         // fonction qui permet la modification d'un médecin
         public function updateMedecin ($tab){
-            $requete ="UPDATE medecin set nom = :nom, prenom = :prenom, email = :email, tel=:tel, specialite=:specialite where idmedecin = :idmedecin ;";
+            $requete ="UPDATE medecin set nom = :nom, prenom = :prenom, email = :email, tel=:tel, idprofession=:idprofession, faculte=:faculte where idmedecin = :idmedecin ;";
             $donnees = array(   ":nom"=>$tab['nom'],
                                 ":prenom"=>$tab['prenom'],
                                 ":email"=>$tab['email'],
                                 ":tel"=>$tab['tel'],
-                                ":specialite"=>$tab['specialite'],
+                                ":idprofession"=>$tab['idprofession'],
+                                ":faculte"=>$tab['faculte'],
                                 ":idmedecin"=>$tab['idmedecin']
                             );
             $update = $this->unPDO->prepare($requete);
@@ -166,7 +168,7 @@ class Modele {
 
         // fonction qui permet de filtrer la liste des médecins
         public function selectLikeMedecins ($mot){
-            $requete ="select * from medecin where nom like '%".$mot."%' or prenom like '%".$mot."%' or email like '%".$mot."%' or tel like '%".$mot."%' or idprofession like '%".$mot."%' ;";
+            $requete ="select * from medecin where nom like '%".$mot."%' or prenom like '%".$mot."%' or email like '%".$mot."%' or tel like '%".$mot."%' or faculte like '%".$mot."%';";
             $select = $this->unPDO->prepare($requete);
             $select->execute();
             return $select->fetchAll();
@@ -192,7 +194,7 @@ class Modele {
 
         // fonction qui liste tout les rendez-vous
         public function selectAllRendezvous (){
-            $requete = "select * from listeRDVS;";
+            $requete = "select * from rendezvous;";
             $select = $this->unPDO->prepare($requete);
             $select->execute();
             return $select->fetchAll();
@@ -231,7 +233,7 @@ class Modele {
 
         // fonction qui filtre les rendez-vous
         public function selectLikeRendezvous ($mot){
-            $requete ="select * from listeRDVS where daterdv like '%".$mot."%' or heure like '%".$mot."%' or etat like '%".$mot."%' or patient_nom like '%".$mot."%' or patient_prenom like '%".$mot."%' or medecin_nom like '%".$mot."%' or medecin_prenom like '%".$mot."%' ;";
+            $requete ="select * from rendezvous where daterdv like '%".$mot."%' or heure like '%".$mot."%' or etat like '%".$mot."%' or idpatient like '%".$mot."%' or idmedecin like '%".$mot."%' ;";
             $select = $this->unPDO->prepare($requete);
             $select->execute();
             return $select->fetchAll();
@@ -240,14 +242,15 @@ class Modele {
         /***********  Prescription  ***********/
         public function insertPrescription ($tab){
             //écriture de la requete preparée d'insertion d'une prescription
-            $requete = "INSERT into prescription values (null, :dateprescription, :medicament, :idpatient, :idmedecin);";
+            $requete = "INSERT into prescription values (null, :dateprescription, :medicament, :idpatient, :idmedecin, :priseMedicament);";
 
             /* creation d'un tableau de données de correspondance entre 
                les paramètres PDO et kes données reçues en entrée */
             $donnees =array (":dateprescription"=>$tab['dateprescription'],
                             ":medicament"=>$tab['medicament'],
                             ":idpatient"=>$tab['idpatient'],
-                            ":idmedecin"=>$tab['idmedecin']
+                            ":idmedecin"=>$tab['idmedecin'],
+                            ":priseMedicament"=>$tab['priseMedicament']
                         );
             //préparation de la requete
             $insert = $this->unPDO->prepare ($requete);
@@ -273,12 +276,12 @@ class Modele {
 
         // fonction pour modifier une prescription
         public function updatePrescription ($tab){
-            $requete ="UPDATE prescription set dateprescription = :dateprescription, medicament = :medicament, idpatient = :idpatient, idmedecin = :idmedecin where 
-            idprescription = :idprescription ;";
+            $requete ="UPDATE prescription set dateprescription = :dateprescription, medicament = :medicament, idpatient = :idpatient, idmedecin = :idmedecin, priseMedicament = :priseMedicament where idprescription = :idprescription ;";
             $donnees =array (":dateprescription"=>$tab['dateprescription'],
                             ":medicament"=>$tab['medicament'],
                             ":idpatient"=>$tab['idpatient'],
                             ":idmedecin"=>$tab['idmedecin'],
+                            ":priseMedicament"=>$tab['priseMedicament'],
                             ":idprescription"=>$tab['idprescription']
                             );
             $update = $this->unPDO->prepare($requete);
@@ -290,20 +293,12 @@ class Modele {
             $donnees=array(":idprescription"=>$idPrescription);
             $select = $this->unPDO->prepare($requete);
             $select->execute($donnees);
-            return $select->fetch(); //un seul résultat 
-        }
-
-        public function selectWhereProfession ($idprofession){
-            $requete = "select * from professions where idprofession = :idprofession ;";
-            $donnees=array(":idprofession"=>$idprofession);
-            $select = $this->unPDO->prepare($requete);
-            $select->execute($donnees);
-            return $select->fetch(); //un seul résultat 
+            return $select->fetch();
         }
 
         // fonction qui filtre la liste des prescriptions
         public function selectLikePrescription ($mot){
-            $requete ="select * from prescription where dateprescription like '%".$mot."%' or medicament like '%".$mot."%' or idpatient like '%".$mot."%' or idmedecin like '%".$mot."%' ;";
+            $requete ="select * from prescription where dateprescription like '%".$mot."%' or medicament like '%".$mot."%' or idpatient like '%".$mot."%' or idmedecin like '%".$mot."%' or priseMedicament like '%".$mot."%';";
             $select = $this->unPDO->prepare($requete);
             $select->execute();
             return $select->fetchAll();
@@ -317,5 +312,13 @@ class Modele {
             $select = $this->unPDO->prepare($requete);
             $select->execute();
             return $select->fetchAll();
+        }
+
+        public function selectWhereProfession($idProfession){
+            $requete = "select * from professions where idprofession = :idprofession ;";
+            $donnees=array(":idprofession"=>$idProfession);
+            $select = $this->unPDO->prepare($requete);
+            $select->execute($donnees);
+            return $select->fetch();
         }
     }
