@@ -48,16 +48,17 @@
 
 <h3> Gestion des médecins </h3>
 <form method="post">
-    Nom Medecin </br>
+    <label for="nom">Nom Medecin</label>
     <input type="text" name="nom" value="<?= ($unMedecin != null) ? $unMedecin['nom'] : '' ?>"> </br>
-    Prénom Medecin </br>
+    
+    <label for="prenom">Prénom Medecin</label>
     <input type="text" name="prenom" value="<?= ($unMedecin != null) ? $unMedecin['prenom'] : '' ?>"> </br>
-    Email Medecin </br>
+
+    <label for="email">Email Medecin</label>
     <input type="text" name="email" value="<?= ($unMedecin != null) ? $unMedecin['email'] : '' ?>"> </br>
-    Téléphone Medecin </br>
+
+    <label for="tel">Tel Medecin</label>
     <input type="text" name="tel" value="<?= ($unMedecin != null) ? $unMedecin['tel'] : '' ?>"> </br>
-    Faculté Medecin </br>
-    <input type="text" name="faculte" value="<?= ($unMedecin != null) ? $unMedecin['faculte'] : '' ?>"> </br>
     
     <!--Récupération des professions dans la DB-->
     <label for="specialite">Profession</label>
@@ -68,7 +69,10 @@
                 echo '<option value="' . $uneProfession['idprofession'] . '">' . $uneProfession['libelle'] . '</option>';
             }
         ?>
-    </select></br>
+    </select></br></br>
+
+    <label for="adresse">Faculté</label>
+    <input type="text" name="faculte" value="<?= ($unMedecin != null) ? $unMedecin['faculte'] : '' ?>"> </br>
 
     <br />
 

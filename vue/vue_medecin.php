@@ -63,7 +63,7 @@
         <th>Prénom</th>
         <th>Email</th>
         <th>Téléphone</th>
-        <th>Spécialité</th>
+        <th>Profession</th>
         <th>Faculté</th>
     </tr>
     <?php

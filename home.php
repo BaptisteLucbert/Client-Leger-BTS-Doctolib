@@ -6,9 +6,7 @@
 		Utilisateur connecté
 		<br />
 		<?php
-			echo $_SESSION['nom'];
-			echo " ";
-			echo $_SESSION['prenom'];
+			echo $_SESSION['nom'] . " " . $_SESSION['prenom'];
 		?>
 		
 	</p>

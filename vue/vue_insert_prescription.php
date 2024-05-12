@@ -48,14 +48,16 @@
 
 <h3> Gestion des prescriptions </h3>
 <form method="post">
-	Date de Prescription </br>
+	<label for="dateprescription">Date Prescription</label>
 	<input type="date" name="dateprescription" value="<?= ($unPrescription != null) ? $unPrescription['dateprescription'] : '' ?>"> </br>
-	Medicament </br>
+
+	<label for="medicament">Médicament</label>
 	<input type="text" name="medicament" value="<?= ($unPrescription != null) ? $unPrescription['medicament'] : '' ?>"> </br>
-    Prise de Médicament </br>
+
+    <label for="quantiteMedicament">Quantité Médicament</label>
     <input type="text" name="priseMedicament" value="<?= ($unPrescription != null) ? $unPrescription['priseMedicament'] : '' ?>"> </br>
 
-	Le Patient : <br />
+	<label for="idpatient">Le Patient</label>
 	<select name="idpatient" value="<?= ($unRendezvous != null) ? $unRendezvous['idpatient'] : '' ?>">
 		<?php
 		foreach ($lesPatients as $unPatient) {
@@ -68,7 +70,7 @@
 
 
 
-	Le Médecin : <br />
+	<label for="idmedecin">Le Médecin</label>
 	<select name="idmedecin" value="<?= ($unRendezvous != null) ? $unRendezvous['idmedecin'] : '' ?>">
 		<?php
 		foreach ($lesMedecins as $unMedecin) {

@@ -85,7 +85,7 @@
             echo "<td>" . $unRendezvous['heure'] . "</td>";
             echo "<td>" . $unRendezvous['etat'] . "</td>";
 
-            $patientInfo = $unControleur->selectWhereMedecin($unRendezvous['idpatient']);
+            $patientInfo = $unControleur->selectWherePatient($unRendezvous['idpatient']);
             echo "<td>" . $patientInfo['nom'] . " " . $patientInfo['prenom'] . "</td>";
 
             $medecinInfo = $unControleur->selectWhereMedecin($unRendezvous['idmedecin']);

@@ -148,3 +148,57 @@
 .header.shrink .nav-list {
     margin-bottom: 0px;
 }
+
+
+
+
+
+
+
+
+
+
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex; /* Disposer les éléments en ligne */
+    justify-content: space-between; /* Espacement égal entre les éléments */
+}
+
+.footer-section {
+    flex: 1; /* Répartir l'espace disponible de manière égale entre les sections */
+    padding: 10px; /* Espacement interne pour les sections */
+    box-sizing: border-box; /* Inclure les marges et les bordures dans la largeur/hauteur totale */
+}
+
+.logo-text {
+    font-size: 20px;
+}
+
+.contact {
+    margin-top: 5px;
+}
+
+.contact span {
+    display: block;
+}
+
+.footer-section.about p {
+    font-size: 12px;
+}
+
+.footer-section.about .fas {
+    margin-right: 3px;
+}
+
+#footer-link {
+    color: #fff;
+    text-decoration: none;
+}

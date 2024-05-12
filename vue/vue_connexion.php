@@ -58,30 +58,30 @@
         input[type="submit"]:hover {
             background-color: #247AE2;
         }
+
+        #logo {
+            height: 100px;
+            width: auto;
+        }
     </style>
 </head>
 <body>
 
 <form method="post">
-    <h3>Connexion Doctolib</h3>
+    <img src="images\Logo-Doctolib.png" alt="Logo-Doctolib" id="logo">
     <table>
         <tr>
             <td>Email</td>
-            <td><input type="text" name="email" required></td>
+            <td><input type="text" name="email" value="blucbert@gmail.com" required></td>
         </tr>
         <tr>
             <td>Mot de passe</td>
-            <td><input type="password" name="mdp" required></td>
+            <td><input type="password" name="mdp" value="123456789" required></td>
         </tr>
         <tr>
             <td><input type="reset" name="Annuler" value="Annuler"></td>
             <td><input type="submit" name="seConnecter" value="Se Connecter"></td>
         </tr>
-
-        <!--Profil Admin-->
-        <tr><p>Email : blucbert@gmail.com<br>Mot de passe : Superb@pt95!</p></tr>
-        
-
     </table>
 </form>
 

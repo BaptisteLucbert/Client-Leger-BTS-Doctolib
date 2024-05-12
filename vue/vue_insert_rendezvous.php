@@ -48,19 +48,20 @@
 
 <h3> Gestion des rendez-vous </h3>
 <form method="post">
-	Date de Rendez-vous </br>
+	<label for="daterdv">Date Rendez-vous</label>
 	<input type="date" name="daterdv" value="<?= ($unRendezvous != null) ? $unRendezvous['daterdv'] : '' ?>"> </br>
-	Heure de Rendez-vous </br>
+    
+	<label for="heure">Heure Rendez-vous</label>
 	<input type="time" name="heure" value="<?= ($unRendezvous != null) ? $unRendezvous['heure'] : '' ?>"> </br>
-    Etat du Rendez-vous </br>
+
+    <label for="etat">Etat Rendez-vous</label>
     <select name="etat" value="<?= ($unRendezvous != null) ? $unRendezvous['etat'] : '' ?>">
         <option value="attente">En Attente</option>
         <option value="confirme">Confirmé</option>
         <option value="annule">Annulé</option>
     </select><br>
 
-
-	Le Patient : <br />
+	<label for="idpatient">Le Patient</label>
 	<select name="idpatient" value="<?= ($unRendezvous != null) ? $unRendezvous['idpatient'] : '' ?>">
 		<?php
 		    foreach ($lesPatients as $unPatient) {
@@ -71,16 +72,14 @@
 		?>
 	</select><br />
 
-
-
-	Le Médecin : <br />
+	<label for="idmedecin">Le Medecin</label>
 	<select name="idmedecin" value="<?= ($unRendezvous != null) ? $unRendezvous['idmedecin'] : '' ?>">
 		<?php
-		foreach ($lesMedecins as $unMedecin) {
-			echo "<option value='" . $unMedecin['idmedecin'] . "'>";
-			echo $unMedecin['nom'] . " " . $unMedecin['prenom'];
-			echo "</option>";
-		}
+		    foreach ($lesMedecins as $unMedecin) {
+		    	echo "<option value='" . $unMedecin['idmedecin'] . "'>";
+		    	echo $unMedecin['nom'] . " " . $unMedecin['prenom'];
+		    	echo "</option>";
+		    }
 		?>
 	</select>
 	<br />
